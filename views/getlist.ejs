@@ -6,48 +6,145 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=980cb5bdc84e332d75c476760f95cb73"></script>
-    <title>Document</title>
+    <title>AHT</title>
     <style>
-            .over_wrap {position:relative;bottom:70px;right:0px;border-radius:6px;line-height:30px;}
+            .over_wrap {position:relative;bottom:105px;right:100px;border-radius:6px;line-height:150%;}
             .over_wrap * {padding: 0;margin: 0;}
-            .over_wrap .over_info {width: 170px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
-            .over_wrap .over_info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px rgb(240, 238, 238);}
-            .over_info .over_title {padding: 5px 0 0 10px;height: 30px;color:#fff; background: #263379 ;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
-            .over_info .over_close {position: absolute;top: 10px;right: 10px;color: rgb(255, 255, 255);width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+            .over_wrap .over_info {width: 400px;height: 130px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff; }
+            .over_wrap .over_info:nth-child(1) {border: 0; box-shadow: 3px 3px 3px 2px rgba(0, 0, 0, 0.2);}
+            .over_info .over_title {padding: 5px 0 0 10px;height: 30px;color:#fff; background: #a7a7a7 ;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+            .over_info .over_close {position: absolute;top: 10px;margin-left: 360px;color: rgb(255, 255, 255);width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
             .over_info .over_close:hover {cursor: pointer;}
-            .over_info .over_body {position: relative;overflow: hidden;}
-            .over_info .over_desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
-            .over_info .over_img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
-
-            .over_info .link {color: #5085BB;}
-
+            .over_info .over_body {position: relative;}
+            .over_info .over_desc {position: relative;margin: 13px 0 0 10px;height: 75px;}
+            .over_info .link {color: #7e7e7e;}
+            .over_info .link:hover {color: #383838;}
+            .over_info .contact , .over_info .address{ font-size: 12px;}
             .info-title {
                 width:200px;
                 text-align:center;
-                padding-top:4px;
+            }
+
+            #map{
+                width:100%;
+                height:700px;
+                position: absolute;
+                border-radius: 15px;
             }
             </style>
 </head>
 <body>
 <form action="/getList">
-    <div id="map"  style="width:100%;height:500px;"></div>
+    <div id="map"  style="width:100%;height:700px;"></div>
     <script>
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		mapOption = { 
 			center: new kakao.maps.LatLng(37.512372, 126.939479), // 지도의 중심좌표
-			level: 4 // 지도의 확대 레벨 
+			level: 6 // 지도의 확대 레벨 
 		};
         var map = new kakao.maps.Map(mapContainer, mapOption);
         
-        <%cul_loc.forEach(function (value) { %> 
-        var marker = new kakao.maps.Marker({
-                map: map, // 마커를 표시할 지도
-                position: new kakao.maps.LatLng(<%=value.loc_log%> , <%=value.loc_lat%>)
+        <%cul_loc.forEach(value => { %> 
+            var marker = new kakao.maps.Marker({
+                    map: map, // 마커를 표시할 지도
+                    position: new kakao.maps.LatLng(<%=value.loc_log%> , <%=value.loc_lat%>)
+                });
+            var infowindow = new kakao.maps.InfoWindow({
+                content: '<div class="info-title"><%=value.NAME%></span>' // 인포윈도우에 표시할 내용
             });
-          
-         marker.setMap(map);
-         <% }); %>  
-        </script>
+
+            var overlay = new kakao.maps.CustomOverlay({
+                position: marker.getPosition()
+            });
+
+            var Customcontent = document.createElement('div');
+            Customcontent.style.width = '170px';
+            Customcontent.style.height = '150px';
+            Customcontent.className = "over_wrap";
+
+            var info = document.createElement('div');
+            info.className = "over_info";
+            Customcontent.appendChild(info);
+
+            var title = document.createElement('div');
+            title.className = "over_title";
+            title.appendChild(document.createTextNode('<%=value.NAME%>'));
+            info.appendChild(title);
+
+            var closeBtn = document.createElement("div");
+            closeBtn.className = "over_close";
+            closeBtn.setAttribute("title","닫기");
+            title.appendChild(closeBtn);
+
+            var bodyContent = document.createElement("div");
+            bodyContent.className = "over_body";
+            info.appendChild(bodyContent);
+
+            var descContent = document.createElement("div");
+            descContent.className = "over_desc"
+            bodyContent.appendChild(descContent);
+
+            var LinkDiv = document.createElement("div");
+            descContent.appendChild(LinkDiv);
+
+            var url = ""
+            var LinkContent = document.createElement("a");
+            if (url == "")
+            { url = "javascript:" }
+            LinkContent.setAttribute("href", "<%=value.homeurl%>");
+            if (url != "javascript:")
+            { LinkContent.setAttribute("target", "_blank"); }
+            LinkContent.className = "link";
+            LinkContent.appendChild(document.createTextNode("홈페이지"));
+            LinkDiv.appendChild(LinkContent);
+
+            var contactContent = document.createElement("div");
+            contactContent.className = "contact"
+            contactContent.appendChild(document.createTextNode("tel : <%=value.contact%>"));
+            descContent.appendChild(contactContent);
+
+            var addressContent = document.createElement("div");
+            addressContent.className = "address"
+            addressContent.appendChild(document.createTextNode("address : <%=value.adress%>"));
+            descContent.appendChild(addressContent);
+
+            overlay.setContent(Customcontent);
+
+            kakao.maps.event.addListener(marker, 'mouseover', mouseOverListener(map,marker,infowindow ));
+            kakao.maps.event.addListener(marker, 'mouseout', mouseOutListener(infowindow));
+            kakao.maps.event.addListener(marker, 'click', clickListener(map,marker,overlay));
+            closeBtn.addEventListener('click', closeListener(map,marker,overlay));
+
+        <% }); %>  
+
+        function mouseOverListener(map, marker,infowindow){
+            return function(){
+                infowindow.open(map, marker);
+            }
+        }
+
+        function mouseOutListener(infowindow) {
+            return function() {
+                infowindow.close();
+            };
+        }
+
+        function closeListener(map,marker,overlay){ 
+            return function() {
+                overlay.setMap(null);
+            };
+        }
+        var clickedOverlay = null;
+        function clickListener( map,marker,overlay ){
+        return function() {
+            if (clickedOverlay) {
+            clickedOverlay.setMap(null);
+            }
+            overlay.setMap(map);
+            clickedOverlay = overlay;
+        };
+    }
+    </script>
 </form>   
 </body>
 </html>
