@@ -33,8 +33,8 @@ request(options, function (error, response,body) {
   }
   const info = JSON.parse(body);
 
-  var sql = 'INSERT INTO cul_loc(CODE, NAME, adress, homeurl , loc_log, loc_lat, contact ) VALUES(?,?,?,?,?,?,?)';
-   for (i in info['culturalSpaceInfo']['row']) 
+  var sql = 'INSERT IGNORE INTO cul_loc(CODE, NAME, adress, homeurl , loc_log, loc_lat, contact ) VALUES(?,?,?,?,?,?,?)';
+   for (var i in info['culturalSpaceInfo']['row']) 
    { var params = 
         [
             [info['culturalSpaceInfo']['row'][i]['SUBJCODE']],
@@ -55,12 +55,3 @@ request(options, function (error, response,body) {
     }
     con.end();
 }); 
-
-/* console.log('분류 : ' + info['culturalSpaceInfo']['row'][i]['SUBJCODE']);
-    console.log('장소명 : ' + info['culturalSpaceInfo']['row'][i]['FAC_NAME']);
-    console.log('주소 : ' + info['culturalSpaceInfo']['row'][i]['ADDR']);
-    console.log('전화번호 : ' + info['culturalSpaceInfo']['row'][i]['PHNE']);
-    console.log('url : ' + info['culturalSpaceInfo']['row'][i]['HOMEPAGE']);
-    console.log('경도 : ' + info['culturalSpaceInfo']['row'][i]['X_COORD']);
-    console.log('위도 : ' + info['culturalSpaceInfo']['row'][i]['Y_COORD']);
-    console.log(" ")   */
