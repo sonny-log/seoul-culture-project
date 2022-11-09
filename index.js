@@ -21,7 +21,8 @@ var db = mysql.createConnection({  // 데이터베이스 연동폼 ,
     host : "localhost",
     user: "root",
     password: "123456",
-    database: "seoul_culture"
+    database: "seoul_culture",
+    multipleStatements: true
 });
 db.connect();
 
@@ -32,26 +33,23 @@ app.listen(3000, function(){ // 3000번포트로 뿌려주면 비동기함수 �
     console.log('서버시작')
 });
 
-app.get('/', function(req,res) { // form /getlist 랑 연동한 ejs 연결
-    var sql = "SELECT * FROM cul_loc"; // 쿼리문 날려주고 select 문
+app.get('/', function(req,res) { 
+    var sql = "SELECT * FROM cul_pos"; 
     
     db.query(sql, function(err, results, fields){
         if (err) throw err;  // 에러 있으면 띄우고
-        res.render('getlist', {cul_pos : results});  // getlist.ejs 에 render 해줄건데 , users 에 쿼리문 날리고난 results 를 담을거다 
+        res.render('getlist', {cul_pos : results});  
     });
 });
 
-app.get('/map', function(req,res) { // form /getlist 랑 연동한 ejs 연결
-    //var loc_sql = "SELECT * FROM cul_loc"; // 쿼리문 날려주고 select 문
-    var event_sql = "SELECT * FROM cul_event";
-    /* db.query(loc_sql, function(err, results, fields){
-        if (err) throw err;  // 에러 있으면 띄우고
-        res.render('cul_map', {cul_pos : results}); // getlist.ejs 에 render 해줄건데 , users 에 쿼리문 날리고난 results 를 담을거다 
-    }); */
-    db.query(event_sql, function(err, results, fields){
-        if (err) throw err;  // 에러 있으면 띄우고
-        res.render('cul_map', {cul_event : results});   // getlist.ejs 에 render 해줄건데 , users 에 쿼리문 날리고난 results 를 담을거다 
-    }); 
+app.get('/map', function(req,res) { 
+    var loc_sql = "SELECT * FROM cul_pos ;"
+    var event_sql = "SELECT * FROM cul_event ;"
+     db.query(loc_sql + event_sql, function(err, results,fields){
+        if (err) throw err;  
+        res.render('cul_map', {cul_pos : results[0] , cul_event : results[1]});
+    });
+
 });
 
 
