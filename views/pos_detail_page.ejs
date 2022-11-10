@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=980cb5bdc84e332d75c476760f95cb73"></script>
+    <link rel="stylesheet" href="/lib/style.css">
+    <title>서울시문화지도</title>
+</head>
+<body>
+    <form action="/detail">
+    <div id ="wrap">
+        <div id = "wrap_pos_detail">
+            <div id ="pos_detail_photo"><img src="<%-cul_pos[0].MAIN_IMG%>" alt="사진자리"></div>
+            <div id ="pos_detail_title"><%-cul_pos[0].NAME%></div>
+            <div id ="pos_detail_content">
+                <ul>
+                    <li>
+                        <span>전화</span><%=cul_pos[0].CONTACT%> 
+                    </li>
+                    <li>
+                        <span>주소</span><%=cul_pos[0].ADDRESS%>
+                    </li>
+                    <li>
+                        <span>홈페이지</span><%=cul_pos[0].HOMEURL%>
+                    </li>
+                </ul> 
+            </div>
+            <div id="pos_detail_map"></div>
+                    <script>
+                        var mapContainer = document.getElementById('pos_detail_map'), 
+                        mapOption = { 
+                            center: new kakao.maps.LatLng(<%=cul_pos[0].LOC_LOG%>, <%=cul_pos[0].LOC_LAT%>), // 지도의 중심좌표
+                            level: 3// 지도의 확대 레벨 
+                        };
+                        var map = new kakao.maps.Map(mapContainer, mapOption);
+                        var marker = new kakao.maps.Marker({
+                            map: map, // 마커를 표시할 지도
+                            position: new kakao.maps.LatLng(<%=cul_pos[0].LOC_LOG%>, <%=cul_pos[0].LOC_LAT%>)
+                        });
+                        marker.setMap(map);
+                        var iwContent = '<div id="detail_info_title"><%-cul_pos[0].NAME%></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                            iwPosition = new kakao.maps.LatLng(<%=cul_pos[0].LOC_LOG%>, <%=cul_pos[0].LOC_LAT%>); 
+
+                        var infowindow = new kakao.maps.InfoWindow({
+                            position : iwPosition, 
+                            content : iwContent 
+                        });
+                        infowindow.open(map, marker);
+                    </script>
+        </div> 
+    </div>        
+    </form>
+</body>
+</html>

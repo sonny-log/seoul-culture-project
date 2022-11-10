@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="lib/style.css"></script>
+    <link rel="stylesheet" href="lib/style.css">
     <title>서울시문화지도</title>
 </head>
 <body>
     <form action="/map">
-    <div id="wrap_header">
+    <div id ="wrap">
+        <div id="wrap_header">
             <div id="title_name">서울시 문화공간</div>
             <div id="map_tap">
                 <div id="tap_menu">공연장</div>
@@ -19,19 +20,46 @@
                 <div id="tap_menu">미술관</div>
                 <div id="tap_menu">박물관/기념관</div>
             </div>
-            <div id="wrap_content">
-                <div id="map_content">
-                    <% for(let i=0 ; i < cul_loc.length; i++){ %> 
+        </div>
+        <div id="wrap_map_content">
+            <div id="map_content">
+                <% for(let i=0 ; i < cul_pos.length; i++){ %> 
                     <div>
-                            <li id="loc_photo"><img src="<%-cul_loc[i].main_img%>" loading="lazy"></li>
-                            <li id="loc_title"><%-cul_loc[i].name%></li>
-                            <li id="loc_address">주소 : <%=cul_loc[i].adress%></li>
-                            <li id="loc_call">전화번호 : <%=cul_loc[i].contact%></li>
+                        <li id="loc_photo">
+                            <a href="/pos_detail/<%=cul_pos[i].IDX%>">
+                                <img src="<%-cul_pos[i].MAIN_IMG%>" loading="lazy">
+                            </a>
+                            </li>
+                        <li id="loc_title"><%-cul_pos[i].NAME%></li>
+                        <li id="loc_address">주소 : <%=cul_pos[i].ADDRESS%></li>
+                        <li id="loc_call">전화번호 : <%=cul_pos[i].CONTACT%></li>
                     </div>
-                    <% }; %>  
-                </div>
+                <% }; %>  
             </div>
         </div>
-    </form>>
+            <div id="title_name">서울시 문화행사</div>
+            <div id="cul_event">
+                <div id="cul_event_stat">NOW! 현재 진행중인행사</div>
+                <div>문화행사 더보기</div>
+            </div>
+            <div id="wrap_event_content">
+                <div id="event_content">
+                    <% for(let i=0 ; i < cul_event.length; i++){ %>
+                        <div >
+                            <li id="event_photo">
+                                <a href="/event_detail/<%=cul_event[i].IDX%>">
+                                    <img src="<%=cul_event[i].MAIN_IMG%>" loading="lazy">
+                                </a>
+                            </li>
+                            <li id="event_title"><%-cul_event[i].NAME%></li>
+                            <li id="event_date">날짜 : <%=cul_event[i].DATE%></li>
+                            <li id="event_loc">장소 : <%=cul_event[i].PLACE%></li>
+                            <li id="event_who">대상 : <%=cul_event[i].USE_WHO%></li>
+                        </div>
+                    <% }; %> 
+                </div> 
+            </div>
+    </div>       
+    </form>
 </body>
 </html>

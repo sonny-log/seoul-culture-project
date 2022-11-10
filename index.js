@@ -3,8 +3,10 @@ const mysql      = require('mysql');
 var ejs = require('ejs');
 var bodyparser = require('body-parser');
 const bodyParser = require('body-parser');
+var path = require('path');
 
 const app = express();
+const router = express.Router();
 
 app.set('view engine', 'ejs'); // 뷰엔진으로 npm 설치한 ejs 사용
 app.set('views', './views') // 아직 이해못함
@@ -14,7 +16,8 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 const dbsetting = require('./dbsetting')
 dbsetting.dbinit();
-const dbsetting2 = require('./save_DB.js')
+const dbsetting2 = require('./save_DB.js');
+const { Router } = require('express');
 dbsetting2.dbcreate();
 
 var db = mysql.createConnection({  // 데이터베이스 연동폼 , 
@@ -25,8 +28,6 @@ var db = mysql.createConnection({  // 데이터베이스 연동폼 ,
     multipleStatements: true
 });
 db.connect();
-
-
 app.use(express.static('public'));
 
 app.listen(3000, function(){ // 3000번포트로 뿌려주면 비동기함수 서버시작한다고 콘솔띄우기
@@ -49,8 +50,29 @@ app.get('/map', function(req,res) {
         if (err) throw err;  
         res.render('cul_map', {cul_pos : results[0] , cul_event : results[1]});
     });
-
 });
+
+router.route('/event_detail/:i').get(function(req,res){
+    var cul_event_data = path.parse(req.params.i).base;
+    db.query('SELECT NAME,DATE,PLACE,MAIN_IMG,USE_WHO,HOMEURL from cul_event WHERE IDX=?;', cul_event_data, function(err, result) {
+            console.log(result);
+            res.render('event_detail_page',{ cul_event: result});
+        });
+})
+
+
+
+router.route('/pos_detail/:i').get(function(req,res){
+    var cul_pos_data = path.parse(req.params.i).base;
+    db.query('SELECT NAME,ADDRESS,HOMEURL,LOC_LOG,LOC_LAT,CONTACT,MAIN_IMG from cul_pos WHERE IDX=?;', cul_pos_data, function(err, result) {
+            console.log(result);
+            res.render('pos_detail_page',{ cul_pos: result});
+        });
+})
+
+app.use('/',router);
+
+module.exports = router;
 
 
   

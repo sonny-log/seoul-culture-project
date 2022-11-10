@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/lib/style.css">
+    <title>서울시문화지도</title>
+</head>
+<body>
+    <form action="/detail">
+    <div id ="wrap">
+        <div id = "wrap_event_detail">
+            <div id ="event_detail_photo"><img src="<%-cul_event[0].MAIN_IMG%>" alt="사진자리"></div>
+            <div id ="event_detail_title"><%-cul_event[0].NAME%></div>
+            <div id ="event_detail_content">
+                <ul>
+                    <li>
+                        <span>날짜</span><%=cul_event[0].DATE%> 
+                    </li>
+                    <li>
+                        <span>장소</span><%=cul_event[0].PLACE%>
+                    </li>
+                    <li>
+                        <span>이용대상</span><%=cul_event[0].USE_WHO%>
+                    </li>
+                </ul>
+                
+            </div>
+            <div id="event_detail_home_url">
+                <a href = "<%=cul_event[0].HOMEURL%>"> 웹페이지로 이동</a>
+            </div> 
+        </div> 
+    </div>        
+    </form>
+</body>
+</html>
