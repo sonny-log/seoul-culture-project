@@ -26,7 +26,7 @@ const dbcreate=()=>{
       }
       const info = JSON.parse(body);
 
-      var sql = 'INSERT IGNORE INTO cul_pos(CODE, NAME, ADDRESS, HOMEURL , LOC_LOG, LOC_LAT, CONTACT, MAIN_IMG) VALUES(?,?,?,?,?,?,?,?)';
+      var sql = 'INSERT IGNORE INTO cul_pos(CODE, NAME, ADDRESS, HOMEURL , LOC_LOG, LOC_LAT, CONTACT, MAIN_IMG,ENTERFREE,CLOSEDAY) VALUES(?,?,?,?,?,?,?,?,?,?)';
       for (var i in info['culturalSpaceInfo']['row']) 
       { var params = 
             [
@@ -37,7 +37,9 @@ const dbcreate=()=>{
                 [info['culturalSpaceInfo']['row'][i]['X_COORD']],
                 [info['culturalSpaceInfo']['row'][i]['Y_COORD']],
                 [info['culturalSpaceInfo']['row'][i]['PHNE']],
-                [info['culturalSpaceInfo']['row'][i]['MAIN_IMG']]
+                [info['culturalSpaceInfo']['row'][i]['MAIN_IMG']],
+                [info['culturalSpaceInfo']['row'][i]['ENTRFREE']],
+                [info['culturalSpaceInfo']['row'][i]['CLOSEDAY']]
             ]
             
             con.query(sql,params,function(err,rows,fields){
@@ -61,7 +63,7 @@ const dbcreate=()=>{
       }
       const info = JSON.parse(body);
 
-      var sql = 'INSERT IGNORE INTO cul_event(CODE, NAME, HOMEURL, DATE, PLACE, USE_WHO, MAIN_IMG) VALUES(?,?,?,?,?,?,?)';
+      var sql = 'INSERT IGNORE INTO cul_event(CODE, NAME, HOMEURL, DATE, PLACE, USE_WHO, MAIN_IMG, GUNAME, USE_FEE, RGSTDATE, STRTDATE, END_DATE) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)';
       
       for (var i in info['culturalEventInfo']['row']) 
       { var params = 
@@ -72,7 +74,12 @@ const dbcreate=()=>{
                 [info['culturalEventInfo']['row'][i]['DATE']],
                 [info['culturalEventInfo']['row'][i]['PLACE']],
                 [info['culturalEventInfo']['row'][i]['USE_TRGT']],
-                [info['culturalEventInfo']['row'][i]['MAIN_IMG']]
+                [info['culturalEventInfo']['row'][i]['MAIN_IMG']],
+                [info['culturalEventInfo']['row'][i]['GUNAME']],
+                [info['culturalEventInfo']['row'][i]['USE_FEE']],
+                [info['culturalEventInfo']['row'][i]['RGSTDATE']],
+                [info['culturalEventInfo']['row'][i]['STRTDATE']],
+                [info['culturalEventInfo']['row'][i]['END_DATE']]
             ]
             con.query(sql,params,function(err,rows,fields){
             if(err){
@@ -80,13 +87,40 @@ const dbcreate=()=>{
             } });
         }
         var d_sql = 
-        "DELETE FROM cul_event where (DATE like '%~2022-08%' or DATE like '%~2022-09%' or DATE like '%~2022-10%' or DATE like '%~2022-11-01%' or DATE like '%~2022-11-02%'or DATE like '%~2022-11-03%' or DATE like '%~2022-11-04%' or DATE like '%~2022-11-05%' or DATE like '%~2022-11-06%'or DATE like '%~2022-11-07%' or DATE like '%~2022-11-08%')";
-        con.query(
-          d_sql,function(err){
+        "delete from cul_event where (end_date < current_date());";
+        var r_sql=
+        "UPDATE cul_event set CODE = replace (CODE ,'/','-');";
+        var strt_update_sql =
+        "update cul_event set STRTDATE= substring_index(STRTDATE,' ',1);";
+        var end_update_sql =
+        "update cul_event set END_DATE= substring_index(END_DATE,' ',1);";
+
+        con.query(d_sql,function(err){
           if(err){
               console.log(err);
           }else{
-            console.log("Success delete cul_event expire DATE");
+            console.log("Success delete" );
+          } });
+
+        con.query(r_sql,function(err){
+          if(err){
+              console.log(err);
+          }else{
+            console.log("Success replace '/'" );
+          } });
+
+        con.query(strt_update_sql,function(err){
+          if(err){
+              console.log(err);
+          }else{
+            console.log("Success strt_update_sql" );
+          } });
+
+        con.query(end_update_sql,function(err){
+          if(err){
+              console.log(err);
+          }else{
+            console.log("Success end_update_sql" );
           } });
         console.log("Database_cul_event_success");
     });

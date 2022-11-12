@@ -4,34 +4,77 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/lib/style.css">
-    <title>서울시문화지도</title>
+    <title>main</title>
+    <link rel="stylesheet" href="/lib/main.css">
 </head>
 <body>
-    <form action="/detail">
-    <div id ="wrap">
-        <div id = "wrap_event_detail">
-            <div id ="event_detail_photo"><img src="<%-cul_event[0].MAIN_IMG%>" alt="사진자리"></div>
-            <div id ="event_detail_title"><%-cul_event[0].NAME%></div>
-            <div id ="event_detail_content">
-                <ul>
-                    <li>
-                        <span>날짜</span><%=cul_event[0].DATE%> 
-                    </li>
-                    <li>
-                        <span>장소</span><%=cul_event[0].PLACE%>
-                    </li>
-                    <li>
-                        <span>이용대상</span><%=cul_event[0].USE_WHO%>
-                    </li>
-                </ul>
-                
+    <div class="headerbar">
+        <div class="headerbar-content">
+            <a href="./ham-menu.html">
+                <img src="../img/top_bars.png">
+            </a>
+        </div>
+        <div class="headerbar-content">
+            <a>
+                <h1>서울문화지도</h1>
+            </a>                
+        </div>
+        <div class="headerbar-content">
+            <a href="/">
+                <img src="../img/top_home.png">
+            </a>
+        </div>
+    </div>
+    <div class="detail">
+        <div class="detail-img">
+            <img src="<%-cul_event[0].MAIN_IMG%>">
+        </div>
+        <div class="detail-tag">
+            <div class="detail-tag-box1">
+                <%-cul_event[0].CODE%>
             </div>
-            <div id="event_detail_home_url">
-                <a href = "<%=cul_event[0].HOMEURL%>"> 웹페이지로 이동</a>
-            </div> 
-        </div> 
-    </div>        
-    </form>
+            <div class="detail-tag-box3">
+                <%=cul_event[0].USE_FEE%>
+            </div>
+        </div>
+        <div class="detail-name">
+            <h2><%=cul_event[0].NAME%></h2>
+        </div>
+        <div class="detail-infor">
+            <div class="detail-infor-date"><!--date-->
+                <span class="detail-infor-box">날짜</span>
+                <span class="detail-infor-text"><%=cul_event[0].DATE%></span>
+            </div>
+            <div class="detail-infor-acc"><!--accept-->
+                <span class="detail-infor-box">신청일자</span>
+                <span class="detail-infor-text"><%=cul_event[0].RGSTDATE%></span>
+            </div>
+            <div class="detail-infor-loc"><!--location-->
+                <span class="detail-infor-box">장소</span>
+                <span class="detail-infor-text"><%=cul_event[0].PLACE%></span>
+            </div>
+            <div class="detail-infor-agen"><!--agency-->
+                <span class="detail-infor-box">기관명</span>
+                <span class="detail-infor-text"><%=cul_event[0].GUNAME%></span>
+            </div>
+            <div class="detail-infor-tar"><!--target-->
+                <span class="detail-infor-box">대상</span>
+                <span class="detail-infor-text"><%=cul_event[0].USE_WHO%></span>
+            </div>
+        </div>
+        <div class="detail-button">
+            <a href="<%=cul_event[0].HOMEURL%>">홈페이지 바로가기</a>
+        </div>
+        <div class="detail-back">
+            <a href="#" onclick="window.history.back(); return false;">뒤로가기</a>
+        </div>
+    </div>
+    <div class="footer">
+        <a>서비스소개</a>
+        <a>이용약관</a>
+        <a>개인정보처리방침</a>
+        <a>이용안내</a>
+    </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </html>

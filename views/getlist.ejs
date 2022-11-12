@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=980cb5bdc84e332d75c476760f95cb73"></script>
     
-    <title>AHT</title>
+    <title>서울시문화지도</title>
     <style>
             .over_wrap {position:relative;bottom:105px;right:100px;border-radius:6px;line-height:150%;}
             .over_wrap * {padding: 0;margin: 0;}
@@ -25,7 +25,6 @@
                 width:200px;
                 text-align:center;
             }
-
             #map{
                 width:100%;
                 height:700px;
@@ -46,13 +45,13 @@
 		};
         var map = new kakao.maps.Map(mapContainer, mapOption);
         
-        <%cul_loc.forEach(value => { %> 
+        <%cul_pos.forEach(value => { %> 
             var marker = new kakao.maps.Marker({
                     map: map, // 마커를 표시할 지도
-                    position: new kakao.maps.LatLng(<%=value.loc_log%> , <%=value.loc_lat%>)
+                    position: new kakao.maps.LatLng(<%=value.LOC_LOG%> , <%=value.LOC_LAT%>)
                 });
             var infowindow = new kakao.maps.InfoWindow({
-                content: '<div class="info-title"><%-value.name%></div>' // 인포윈도우에 표시할 내용
+                content: '<div class="info-title"><%-value.NAME%></div>' // 인포윈도우에 표시할 내용
             });
 
             var overlay = new kakao.maps.CustomOverlay({
@@ -70,7 +69,7 @@
 
             var title = document.createElement('div');
             title.className = "over_title";
-            title.appendChild(document.createTextNode('<%-value.name%>'));
+            title.appendChild(document.createTextNode('<%-value.NAME%>'));
             info.appendChild(title);
 
             var closeBtn = document.createElement("div");
@@ -93,7 +92,7 @@
             var LinkContent = document.createElement("a");
             if (url == "")
             { url = "javascript:" }
-            LinkContent.setAttribute("href", "<%=value.homeurl%>");
+            LinkContent.setAttribute("href", "<%=value.HOMEURL%>");
             if (url != "javascript:")
             { LinkContent.setAttribute("target", "_blank"); }
             LinkContent.className = "link";
@@ -102,12 +101,12 @@
 
             var contactContent = document.createElement("div");
             contactContent.className = "contact"
-            contactContent.appendChild(document.createTextNode("tel : <%=value.contact%>"));
+            contactContent.appendChild(document.createTextNode("tel : <%=value.CONTACT%>"));
             descContent.appendChild(contactContent);
 
             var addressContent = document.createElement("div");
             addressContent.className = "address"
-            addressContent.appendChild(document.createTextNode("address : <%=value.adress%>"));
+            addressContent.appendChild(document.createTextNode("address : <%=value.ADDRESS%>"));
             descContent.appendChild(addressContent);
 
             overlay.setContent(Customcontent);
