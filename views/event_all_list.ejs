@@ -91,7 +91,7 @@
         <% if(curSet > 1) { %>
          
             <li value=(startPage -1) class="previous">
-                <a href='/will_event_list/<%= ( startPage - 1) %>'> < </a>
+                <a href='/event_list/<%= ( startPage - 1) %>'> < </a>
             </li> <% } %>
     
         <% for(var i = startPage; i <= endPage; i++){
@@ -99,19 +99,19 @@
 
             if(i == curPage){ %>
             <li value=<%= i %> class='' >
-                <a href='/will_event_list/<%= i %>'> <%= i %></a>
+                <a href='/event_list/<%= i %>'> <%= i %></a>
             </li>
 
             <% } else { %>
                 <li value=<%= i %> class='active' >
-                    <a href='/will_event_list/<%= i %>'> <%= i %></a> 
+                    <a href='/event_list/<%= i %>'> <%= i %></a> 
                 </li>     
             <%  } %>  
         <% }%>        
                     
             <% if(curSet < totalSet){ %>
                 <li value=( endPage + 1) class="next">
-                    <a href='/will_event_list/<%= ( endPage + 1) %>'> > </a>
+                    <a href='/event_list/<%= ( endPage + 1) %>'> > </a>
                 </li>
             <%  } %>
         </ul>

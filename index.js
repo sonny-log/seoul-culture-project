@@ -58,13 +58,69 @@ app.get('/map', function(req,res) {
 });
 
 
-
-app.get('/event_list', function(req,res) {
-    var event_sql = "SELECT * FROM cul_event ;"
-     db.query(event_sql, function(err, results){
-    res.render('event_all_list', {cul_event : results });
+app.get('/event_list/:page', function(req,res) {
+    var page_size = 10;
+    //페이지의 갯수 : 1 ~ 10개 페이지
+    var page_list_size = 10;
+    //limit 변수
+    var no = "";
+    //전체 게시물의 숫자
+    var totalPageCount = 0;
     
-     });
+    var loc_sql = "SELECT count(*) as cnt FROM cul_event where(end_date between current_date() and '2024-12-24');";
+
+    db.query(loc_sql, function(err, results){
+        if (err) throw err; 
+
+        totalPageCount = results[0].cnt
+        var curPage = req.params.page;
+        console.log("현재 페이지 : " + curPage, "전체 페이지 : " + totalPageCount);
+
+        if (totalPageCount < 0) {
+            totalPageCount = 0
+        }
+        var totalPage = Math.ceil(totalPageCount / page_size);// 전체 페이지수
+        var totalSet = Math.ceil(totalPage / page_list_size); //전체 세트수         
+        var curSet = Math.ceil(curPage / page_list_size) // 현재 셋트 번호
+        var startPage = ((curSet - 1) * 10) + 1 //현재 세트내 출력될 시작 페이지
+        var endPage = (startPage + page_list_size) - 1; //현재 세트내 출력될 마지막 페이지
+
+        if (curPage < 0) {
+            no = 0
+        } else {
+            //0보다 크면 limit 함수에 들어갈 첫번째 인자 값 구하기
+            no = (curPage - 1) * 10
+        } 
+        var result2 = {
+            "curPage": curPage,
+            "page_list_size": page_list_size,
+            "page_size": page_size,
+            "totalPage": totalPage,
+            "totalSet": totalSet,
+            "curSet": curSet,
+            "startPage": startPage,
+            "endPage": endPage
+        };
+
+        fs.readFile('views/event_all_list.ejs', 'utf-8', function (error, data) {
+
+            if (error) {
+                console.log("ejs오류" + error);
+                return
+            }
+            //console.log("몇번부터 몇번까지" + no)
+            var queryString = "SELECT * FROM cul_event where(end_date between current_date() and '2024-12-24') order by IDX desc limit ?,?";
+            db.query(queryString, [no, page_size], function (error, result) {
+                if (error) {
+                    console.log("페이징 에러" + error);
+                    return
+                }
+                res.send(ejs.render(data, {
+                    cul_event: result, pasing: result2
+                }));
+            });
+        }); 
+    });
 });
 
 app.get('/pos_list/:page', function(req,res) {
@@ -142,7 +198,7 @@ app.get('/cur_event_list/:page', function(req,res) {
     //전체 게시물의 숫자
     var totalPageCount = 0;
     
-    var loc_sql = "SELECT count(*) as cnt FROM cul_event where end_date > current_date();"
+    var loc_sql = "SELECT count(*) as cnt FROM cul_event where (strtdate between '2022-01-01' and current_date()) and (end_date between current_date() and '2024-12-24');"
     db.query(loc_sql, function(err, results){
         if (err) throw err; 
 
@@ -183,7 +239,7 @@ app.get('/cur_event_list/:page', function(req,res) {
                 return
             }
             //console.log("몇번부터 몇번까지" + no)
-            var queryString = "SELECT * FROM cul_event where end_date > current_date() order by IDX desc limit ?,?";
+            var queryString = "SELECT * FROM cul_event where (strtdate between '2022-01-01' and current_date()) and (end_date between current_date() and '2024-12-24') order by IDX desc limit ?,?";
             db.query(queryString, [no, page_size], function (error, result) {
                 if (error) {
                     console.log("페이징 에러" + error);
