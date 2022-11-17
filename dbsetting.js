@@ -7,7 +7,7 @@ const dbinit=()=>{
       host: "localhost",
       user: "root",
       password: "123456",
-      multipleStatements: true 
+      multipleStatements: true
     });
     
     con.connect(function(err) {
@@ -20,7 +20,6 @@ const dbinit=()=>{
       });
     });
   }
-  
   
   module.exports={
     dbinit,

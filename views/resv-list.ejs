@@ -32,7 +32,7 @@
             </a>                
         </div>
         <div class="headerbar-content">
-            <a href="/">
+            <a href="/"">
                 <img src="/img/top_home.png">
             </a>
         </div>
@@ -50,28 +50,28 @@
         </div>
     </div> -->
     <div class="list">
-    <% for(let i=0 ; i < cul_pos.length; i++){ %> 
+    <% for(let i=0 ; i < cul_reserv.length; i++){ %> 
         <div class="list-content">
             <div class="list-content-img">
-                <a href="/pos_detail/<%=cul_pos[i].IDX%>">
-                <img src="<%-cul_pos[i].MAIN_IMG%>">
+                <a href="/reserv_detail/<%=cul_reserv[i].IDX%>">
+                    <img src="<%-cul_reserv[i].IMGURL%>">
                 </a>
             </div>
             <div class="list-content-text">
                 <div>
-                    <span class="box3"><%=cul_pos[i].CODE%></span>
-                    <span class="box4"><%=cul_pos[i].ENTERFREE%></span>
+                    <span class="box3"><%=cul_reserv[i].MINCLASSNM%></span>
+                    <span class="box4"><%=cul_reserv[i].PAYATNM%></span>
                 </div>
                 <p>
-                    <strong><%-cul_pos[i].NAME%></strong>
-                    <br>주소 : <%=cul_pos[i].ADDRESS%>
-                    <br>전화번호 : <%=cul_pos[i].CONTACT%> 
+                    <strong><%-cul_reserv[i].SVCNM%></strong>
+                    <br>주소 : <%=cul_reserv[i].PLACENM%>
+                    <br>전화번호 : <%=cul_reserv[i].TELNO%> 
                 </p>
                 <div>
-                    <button onclick="window.location.href='<%=cul_pos[i].HOMEURL%>'">홈페이지</button>
+                    <button onclick="window.location.href='<%=cul_reserv[i].SVCURL%>'">홈페이지</button>
                 </div>
             </div>
-        
+    
     </div>
      <%}%>  
     </div>
@@ -90,7 +90,7 @@
             <% if(curSet > 1) { %>
              
                 <li value=(startPage -1) class="previous">
-                    <a href="/pos_type_list/<%=cul_pos[0].CODE%>/<%= ( startPage - 1) %>"> < </a>
+                    <a href="/resv_type_list/<%=cul_reserv[0].AREANM%>/<%= ( startPage - 1) %>"> < </a>
                 </li> <% } %>
         
             <% for(var i = startPage; i <= endPage; i++){
@@ -98,23 +98,22 @@
     
                 if(i == curPage){ %>
                 <li value=<%= i %> class='' >
-                    <a href="/pos_type_list/<%=cul_pos[0].CODE%>/<%= i %>"> <%= i %> </a>
+                    <a href="/resv_type_list/<%=cul_reserv[0].AREANM%>/<%= i %>"> <%= i %> </a>
                 </li>
     
                 <% } else { %>
                     <li value=<%= i %> class='active' >
-                        <a href="/pos_type_list/<%=cul_pos[0].CODE%>/<%= i %>"> <%= i %></a> 
+                        <a href="/resv_type_list/<%=cul_reserv[0].AREANM%>/<%= i %>"> <%= i %></a> 
                     </li>     
                 <%  } %>  
             <% }%>        
                         
                 <% if(curSet < totalSet){ %>
                     <li value=( endPage + 1) class="next">
-                        <a href="/pos_type_list/<%=cul_pos[0].CODE%>/<%= ( endPage + 1) %>"> > </a>
+                        <a href="/resv_type_list/<%=cul_reserv[0].AREANM%>/<%= ( endPage + 1) %>"> > </a>
                     </li>
                 <%  } %>
         </ul>
-      
     </div>
     <div class="footer">
         <a>서비스소개</a>

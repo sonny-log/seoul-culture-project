@@ -10,9 +10,21 @@
 <body>
     <div class="headerbar">
         <div class="headerbar-content">
-            <a href="./ham-menu.html">
-                <img src="../img/top_bars.png">
-            </a>
+            <input type="checkbox" id="check_box" />
+            <label for="check_box">
+              <span></span>
+              <span></span>
+              <span></span>
+            </label>
+            <div id="side_menu">
+                <p>서울시문화지도</p>
+              <ul>
+                <li><a href="#">서비스소개</a></li>
+                <li><a href='/pos_list/1'>문화공간</a></li>
+                <li><a href="/cur_event_list/1">문화행사</a></li>
+                <li><a href='/resv_list/1'>행사예약</a></li>
+              </ul>
+            </div>
         </div>
         <div class="headerbar-content">
             <a>
@@ -25,7 +37,7 @@
             </a>
         </div>
     </div>
-    <div class="list-search">
+    <!-- <div class="list-search">
         <div class="list-search-box">
             <select name="select">
                 <option value="">선택</option>
@@ -36,7 +48,7 @@
             <input type="text" placeholder="검색어(시설명,주소,연락처)를 입력해주세요." size="40">
             <input type="submit">
         </div>
-    </div>
+    </div> -->
     <div class="list">
     <% for(let i=0 ; i < cul_pos.length; i++){ %> 
         <div class="list-content">
@@ -56,9 +68,7 @@
                     <br>전화번호 : <%=cul_pos[i].CONTACT%> 
                 </p>
                 <div>
-                    <button>전화</button>
-                    <button>홈페이지</button>
-                    <button>위치</button>
+                    <button onclick="window.location.href='<%=cul_pos[i].HOMEURL%>'">홈페이지</button>
                 </div>
             </div>
     

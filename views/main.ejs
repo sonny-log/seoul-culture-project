@@ -5,20 +5,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>main</title>
-    <link rel="stylesheet" href="lib/main.css">
+    <link rel="stylesheet" href="/lib/main.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 <body>
-<form action="/main">
-    <div class="headerbar">
+    <div class="headerbar-main">
         <div class="headerbar-content">
-            <a href="./ham-menu.html">
-                <img src="img/top_bars.png">
-            </a>
+            <input type="checkbox" id="check_box" />
+            <label for="check_box">
+              <span></span>
+              <span></span>
+              <span></span>
+            </label>
+            <div id="side_menu">
+                <p>서울시문화지도</p>
+              <ul>
+                <li><a href="#">서비스소개</a></li>
+                <li><a href='/pos_list/1'>문화공간</a></li>
+                <li><a href="/cur_event_list/1">문화행사</a></li>
+                <li><a href='/resv_list/1'>행사예약</a></li>
+              </ul>
+            </div>
         </div>
-        <div class="headerbar-content">
+        <div class="headerbar-name">
             <a>
-                <h3>서울문화지도</h3>
+                <p>서울문화지도</p>
             </a>                
         </div>
         <div class="headerbar-content">
@@ -26,38 +37,33 @@
                 <img src="img/top_home.png">
             </a>
         </div>
-        <div class="headerbar-content">
-            <a href="./">
-                <img src="img/top_user.png">
-            </a>
-        </div>
-    </div>
-    <div class="body-top-image">
-        <img src="img/main-body-top-image.png">
     </div>
     <div class="body-infor">
-        <div class="body-infor-name">
+        <!-- <div class="body-infor-name">
             <h2>서울시 문화공간</h2>
-        </div>
-        <div class="body-infor-search">
+        </div> -->
+        <!-- <div class="body-infor-search">
             <input type="text" placeholder="검색어(시설명,주소,연락처)를 입력해주세요." size="40px">
             <button type="submit">검색</button>
+        </div> -->
+        <div class="body-top-image">
+            <img src="img/main-body-top-image.png">
         </div>
         <div class="body-infor-menubar">
             <div class="body-infor-menu">
-                <a href="/pos_type_list/<%-cul_pos[2].CODE%>">공연장</a>
+                <a href="/pos_type_list/공연장/1">공연장</a>
             </div>
             <div class="body-infor-menu">
-                <a href="/pos_type_list/<%-cul_pos[3].CODE%>">도서관</a>
+                <a href="/pos_type_list/도서관/1">도서관</a>
             </div>
             <div class="body-infor-menu">
-                <a href="/pos_type_list/<%-cul_pos[4].CODE%>">문화예술회관</a>
+                <a href="/pos_type_list/문화예술회관/1">문화예술회관</a>
             </div>
             <div class="body-infor-menu">
-                <a href="/pos_type_list/<%-cul_pos[13].CODE%>">문화원</a>
+                <a href="/pos_type_list/문화원/1">문화원</a>
             </div>
             <div class="body-infor-menu">
-                <a href="/pos_type_list/<%-cul_pos[5].CODE%>">미술관</a>
+                <a href="/pos_type_list/미술관/1">미술관</a>
             </div>
         </div>
         <div class="body-infor-outbox">
@@ -68,8 +74,8 @@
                     </a>
                 </div>
                 <div class="box-icon">
-                    <span><%=cul_pos[0].CODE%></span>
-                    <span><%=cul_pos[0].ENTERFREE%></span>
+                    <span class="box-icon-1"><%=cul_pos[0].CODE%></span>
+                    <span class="box-icon-2"><%=cul_pos[0].ENTERFREE%></span>
                 </div>
                 <div class="box-name">
                     <p><strong><%-cul_pos[0].NAME%></strong></p>
@@ -88,8 +94,8 @@
                     </a>
                 </div>
                 <div class="box-icon">
-                    <span><%=cul_pos[1].CODE%></span>
-                    <span><%=cul_pos[1].ENTERFREE%></span>
+                    <span class="box-icon-1"><%=cul_pos[1].CODE%></span>
+                    <span class="box-icon-2"><%=cul_pos[1].ENTERFREE%></span>
                 </div>
                 <div class="box-name">
                     <p><strong><%-cul_pos[1].NAME%></strong></p>
@@ -110,8 +116,8 @@
                     </a>
                 </div>
                 <div class="box-icon">
-                    <span><%=cul_pos[2].CODE%></span>
-                    <span><%=cul_pos[2].ENTERFREE%></span>
+                    <span class="box-icon-1"><%=cul_pos[2].CODE%></span>
+                    <span class="box-icon-2"><%=cul_pos[2].ENTERFREE%></span>
                 </div>
                 <div class="box-name">
                     <p><strong><%-cul_pos[2].NAME%></strong></p>
@@ -130,8 +136,8 @@
                     </a>
                 </div>
                 <div class="box-icon">
-                    <span><%=cul_pos[3].CODE%></span>
-                    <span><%=cul_pos[3].ENTERFREE%></span>
+                    <span class="box-icon-1"><%=cul_pos[3].CODE%></span>
+                    <span class="box-icon-2"><%=cul_pos[3].ENTERFREE%></span>
                 </div>
                 <div class="box-name">
                     <p><strong><%-cul_pos[3].NAME%></strong></p>
@@ -145,63 +151,63 @@
             </div>
         </div>
         <div class="body-infor-button">
-            <a href='/pos_list/1'">더보기</a>
+            <a href="/pos_list/1">더보기</a>
         </div>
     </div>
+    <div class="body-linkbox-name">
+        <h3>서울시 문화행사</h3>
+    </div>
     <div class="body-linkbox">
-        <div class="body-linkbox-name">
-            <h3>서울시 문화행사</h3>
-        </div>
         <div class="body-linkbox-in">
             <div class="box1">
-                <a href="/event_type_list/<%-cul_event[3].CODE%>">국악</a>
+                <a href="/event_type_list/국악/1">국악</a>
             </div>
             <div class="box1">
-                <a href="/event_type_list/<%-cul_event[1].CODE%>">무용</a>
+                <a href="/event_type_list/무용/1">무용</a>
             </div>
             <div class="box1">
-                <a href="/event_type_list/<%=cul_event[11].CODE%>">문화교양<br>강좌</a>
+                <a href="/event_type_list/문화교양-강좌/1">문화교양<br>강좌</a>
             </div>
             <div class="box1">
-                <a href="/event_type_list/<%-cul_event[6].CODE%>">뮤지컬<br>오페라</a>
-            </div>
-        </div>
-        <div class="body-linkbox-in">
-            <div class="box1">
-                <a href="/event_type_list/<%-cul_event[10].CODE%>">연극</a>
-            </div>
-            <div class="box1">
-                <a href="/event_type_list/<%-cul_event[85].CODE%>">영화</a>
-            </div>
-            <div class="box1">
-                <a href="/event_type_list/<%-cul_event[7].CODE%>">전시/미술</a>
-            </div>
-            <div class="box1">
-                <a href="/event_type_list/<%-cul_event[75].CODE%>">축제<br>기타</a>
+                <a href="/event_type_list/뮤지컬-오페라/1">뮤지컬<br>오페라</a>
             </div>
         </div>
         <div class="body-linkbox-in">
             <div class="box1">
-                <a href="/event_type_list/<%-cul_event[115].CODE%>">축제<br>문화/예술</a>
+                <a href="/event_type_list/연극/1">연극</a>
             </div>
             <div class="box1">
-                <a href="/event_type_list/<%-cul_event[8].CODE%>">콘서트</a>
+                <a href="/event_type_list/영화/1">영화</a>
             </div>
             <div class="box1">
-                <a href="/event_type_list/<%-cul_event[2].CODE%>">클래식</a>
+                <a href="/event_type_list/전시-미술/1">전시/미술</a>
             </div>
             <div class="box1">
-                <a href="/event_type_list/<%-cul_event[0].CODE%>">기타</a>
+                <a href="/event_type_list/축제-기타/1">축제<br>기타</a>
+            </div>
+        </div>
+        <div class="body-linkbox-in">
+            <div class="box1">
+                <a href="/event_type_list/축제-문화-예술/1">축제<br>문화/예술</a>
+            </div>
+            <div class="box1">
+                <a href="/event_type_list/콘서트/1">콘서트</a>
+            </div>
+            <div class="box1">
+                <a href="/event_type_list/클래식/1">클래식</a>
+            </div>
+            <div class="box1">
+                <a href="/event_type_list/기타/1">기타</a>
             </div>
         </div>
     </div>
     <div class="body-event-ing">
         <div class="body-event-ing-head">
             <div class="box2">
-                <p><strong>현재 진행중 행사</strong></p>
+                <p><strong>현재 진행중인 행사</strong></p>
             </div>
             <div class="box2">
-                <a href="/event_list/1">문화공간 더보기+</a>
+                <a href="/cur_event_list/1">문화공간 더보기+</a>
             </div>
         </div>
         <div class="body-event-ing-body">
@@ -250,43 +256,51 @@
     <div class="body-event-imminent">
         <div class="body-event-imminent-head">
             <div class="box2">
-                <p><strong>현재 진행중 행사</strong></p>
+                <p><strong>예정된 행사</strong></p>
             </div>
             <div class="box2">
-                <a href="./event-list.html">문화공간 더보기+</a>
+                <a href="/will_event_list/1">문화공간 더보기+</a>
             </div>
         </div>
         <div class="body-event-imminent-body">
             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="<%=cul_event[0].MAIN_IMG%>" class="d-block w-100">
-                        <p><strong><%-cul_event[0].NAME%></strong></p>
-                        <p><strong>날짜 : </strong><%=cul_event[0].DATE%></p>
-                        <p><strong>장소 : </strong><%=cul_event[0].PLACE%></p>
-                        <p><strong>대상 : </strong><%=cul_event[0].USE_WHO%></p>
-                      </div>
-                      <div class="carousel-item">
-                        <img src="<%=cul_event[1].MAIN_IMG%>" class="d-block w-100">
-                        <p><strong><%-cul_event[1].NAME%></strong></p>
-                        <p><strong>날짜 : </strong><%=cul_event[1].DATE%></p>
-                        <p><strong>장소 : </strong><%=cul_event[1].PLACE%></p>
-                        <p><strong>대상 : </strong><%=cul_event[1].USE_WHO%></p>
-                      </div>
-                      <div class="carousel-item">
-                        <img src="<%=cul_event[2].MAIN_IMG%>" class="d-block w-100">
-                        <p><strong><%-cul_event[2].NAME%></strong></p>
-                        <p><strong>날짜 : </strong><%=cul_event[2].DATE%></p>
-                        <p><strong>장소 : </strong><%=cul_event[2].PLACE%></p>
-                        <p><strong>대상 : </strong><%=cul_event[2].USE_WHO%></p>
-                      </div>
-                      <div class="carousel-item">
-                        <img src="<%=cul_event[3].MAIN_IMG%>" class="d-block w-100">
-                        <p><strong><%-cul_event[3].NAME%></strong></p>
-                        <p><strong>날짜 : </strong><%=cul_event[3].DATE%></p>
-                        <p><strong>장소 : </strong><%=cul_event[3].PLACE%></p>
-                        <p><strong>대상 : </strong><%=cul_event[3].USE_WHO%></p>
-                      </div>
+                        <a href="/event_detail/<%=will_event[0].IDX%>">
+                            <img src="<%=will_event[0].MAIN_IMG%>" class="d-block w-100">                        
+                        </a>
+                        <p><strong><%-will_event[0].NAME%></strong></p>
+                        <p><strong>날짜 : </strong><%=will_event[0].DATE%></p>
+                        <p><strong>장소 : </strong><%=will_event[0].PLACE%></p>
+                        <p><strong>대상 : </strong><%=will_event[0].USE_WHO%></p>
+                        </div>
+                        <div class="carousel-item">
+                        <a href="/event_detail/<%=will_event[1].IDX%>">
+                            <img src="<%=will_event[1].MAIN_IMG%>" class="d-block w-100">
+                        </a>
+                        <p><strong><%-will_event[1].NAME%></strong></p>
+                        <p><strong>날짜 : </strong><%=will_event[1].DATE%></p>
+                        <p><strong>장소 : </strong><%=will_event[1].PLACE%></p>
+                        <p><strong>대상 : </strong><%=will_event[1].USE_WHO%></p>
+                        </div>
+                        <div class="carousel-item">
+                        <a href="/event_detail/<%=will_event[2].IDX%>">
+                            <img src="<%=will_event[2].MAIN_IMG%>" class="d-block w-100">
+                        </a>
+                        <p><strong><%-will_event[2].NAME%></strong></p>
+                        <p><strong>날짜 : </strong><%=will_event[2].DATE%></p>
+                        <p><strong>장소 : </strong><%=will_event[2].PLACE%></p>
+                        <p><strong>대상 : </strong><%=will_event[2].USE_WHO%></p>
+                        </div>
+                        <div class="carousel-item">
+                        <a href="/event_detail/<%=will_event[3].IDX%>">
+                            <img src="<%=will_event[3].MAIN_IMG%>" class="d-block w-100">
+                        </a>
+                        <p><strong><%-will_event[3].NAME%></strong></p>
+                        <p><strong>날짜 : </strong><%=will_event[3].DATE%></p>
+                        <p><strong>장소 : </strong><%=will_event[3].PLACE%></p>
+                        <p><strong>대상 : </strong><%=will_event[3].USE_WHO%></p>
+                    </div>
                 </div>
               </div>
         </div>
@@ -296,26 +310,108 @@
             <h3>문화체험 예약</h3>
         </div>
         <div class="body-reservation-body">
+            <div class="body-linkbox-inhead">
+                <p>도심권</p>
+            </div>
             <div class="body-linkbox-in">
                 <div class="box1">
-                    <a>서울</a>
+                    <a href="/resv_type_list/종로구/1">종로구</a>
                 </div>
                 <div class="box1">
-                    <a>수도권</a>
+                    <a href="/resv_type_list/중구/1">중구</a>
+                </div>
+                <div class="box1">
+                    <a href="/resv_type_list/용산구/1">용산구</a>
+                </div>
+            </div>
+            <div class="body-linkbox-inhead">
+                <p>동북권</p>
+            </div>
+            <div class="body-linkbox-in">
+                <div class="box1">
+                    <a href="/resv_type_list/성동구/1">성동구</a>
+                </div>
+                <div class="box1">
+                    <a href="/resv_type_list/광진구/1">광진구</a>
+                </div>
+                <div class="box1">
+                    <a href="/resv_type_list/동대문구/1">동대문구</a>
+                </div>
+                <div class="box1">
+                    <a href="/resv_type_list/중랑구/1">중랑구</a>
                 </div>
             </div>
             <div class="body-linkbox-in">
                 <div class="box1">
-                    <a>부산</a>
+                    <a href="/resv_type_list/성북구/1">성북구</a>
                 </div>
                 <div class="box1">
-                    <a>대구</a>
+                    <a href="/resv_type_list/강북구/1">강북구</a>
                 </div>
                 <div class="box1">
-                    <a>대전</a>
+                    <a href="/resv_type_list/도봉구/1">도봉구</a>
                 </div>
                 <div class="box1">
-                    <a>광주</a>
+                    <a href="/resv_type_list/노원구/1">노원구</a>
+                </div>
+            </div>
+            <div class="body-linkbox-inhead">
+                <p>서북권</p>
+            </div>
+            <div class="body-linkbox-in">
+                <div class="box1">
+                    <a href="/resv_type_list/은평구/1">은평구</a>
+                </div>
+                <div class="box1">
+                    <a href="/resv_type_list/서대문구/1">서대문구</a>
+                </div>
+                <div class="box1">
+                    <a href="/resv_type_list/마포구/1">마포구</a>
+                </div>
+            </div>
+            <div class="body-linkbox-inhead">
+                <p>서남권</p>
+            </div>
+            <div class="body-linkbox-in">
+                <div class="box1">
+                    <a href="/resv_type_list/양천구/1">양천구</a>
+                </div>
+                <div class="box1">
+                    <a href="/resv_type_list/강서구/1">강서구</a>
+                </div>
+                <div class="box1">
+                    <a href="/resv_type_list/구로구/1">구로구</a>
+                </div>
+                <div class="box1">
+                    <a href="/resv_type_list/금천구/1">금천구</a>
+                </div>
+            </div>
+            <div class="body-linkbox-in">
+                <div class="box1">
+                    <a href="/resv_type_list/영등포구/1">영등포구</a>
+                </div>
+                <div class="box1">
+                    <a href="/resv_type_list/동작구/1">동작구</a>
+                </div>
+                <div class="box1">
+                    <a href="/resv_type_list/관악구/1">관악구</a>
+                </div>
+            </div>
+            <div class="body-linkbox-inhead">
+                <p>동남권</p>
+            </div>
+            <div class="body-linkbox-in">
+                <div class="box1">
+                    <a href="/resv_type_list/서초구/1">서초구</a>
+                </div>
+                <div class="box1">
+                    <a href="/resv_type_list/강남구/1">강남구</a>
+                </div>
+                <div class="box1">
+                    <a href="/resv_type_list/송파구/1">송파구</a>
+                </div>
+                <div class="box1">
+                    <a href="/resv_type_list/강동구/1">강동구</a>
                 </div>
             </div>
         </div>
@@ -326,7 +422,6 @@
         <a>개인정보처리방침</a>
         <a>이용안내</a>
     </div>
-</form>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </html>
